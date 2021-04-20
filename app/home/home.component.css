@@ -1,0 +1,22 @@
+.home-page-panel{
+    font-size: 20;
+    margin: 15;
+    background-color: #d098d9;
+    height: 100%;
+    width: 100%;
+}
+
+.description-label{
+    margin-bottom: 15;
+    color: white;
+}
+
+GridLayout {
+    margin: 0;
+    padding: 0;
+}
+
+.home-panel {
+    margin: 10;
+    padding: 10;
+}

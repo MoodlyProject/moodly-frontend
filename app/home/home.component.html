@@ -1,0 +1,26 @@
+<ActionBar title="Moodly">
+</ActionBar>
+
+<GridLayout class="home-page-panel" rows="auto, auto, auto">
+
+    <!--Add your page content here-->
+    <StackLayout row="0" class="img-panel">
+        <Image class="home-pic-img" src="~/assets/img/home-pic.png"></Image>
+    </StackLayout>
+
+    <StackLayout row="1" verticalAlignment="center" class="buttons-panel">
+        <Button text="Take a photo" class="btn" (tap)="takePhoto()"></Button>
+        <Button text="Upload a photo" class="btn" (tap)="uploadPhoto()"></Button>
+    </StackLayout>
+    <StackLayout row="2" class="home-panel">
+        <Label textWrap="true"
+            text="Moodly can detect a human emotion through photo and suggest a movie and music thought your emotion."
+            class="h2 description-label"></Label>
+        <Label textWrap="true"
+            text="Please * Take a picture or, * Upload a picture"
+            class="h2 description-label"></Label>
+        <Label textWrap="true"
+            text="The result ill be displayed after processing the image."
+            class="h2 description-label"></Label>
+    </StackLayout>
+</GridLayout>
