@@ -9,13 +9,18 @@ const dimens = StyleSheet.create({
   deviceHeight: dimentions.height,
 });
 
-const styles = StyleSheet.create({
+const myStyles = StyleSheet.create({
   textStyle: {
     fontSize: 20,
   },
   titleStyle: {
     fontSize: 30,
     justifyContent: "center",
+  },
+  img: {
+    width: dimentions.width * 0.8,
+    height: dimentions.width * 0.8,
+    borderRadius: 15,
   },
 });
 
@@ -24,6 +29,12 @@ const buttons = StyleSheet.create({
     fontSize: 25,
     width: 250,
     height: 50,
+    justifyContent: "center",
+    backgroundColor: "blue",
+  },
+  link: {
+    width: dimentions.width * 0.8,
+    fontSize: 25,
     justifyContent: "center",
     backgroundColor: "blue",
   },
@@ -38,6 +49,11 @@ const text = StyleSheet.create({
     color: "white",
     fontSize: 20,
   },
+  links: {
+    maxWidth: "80%",
+    color: "white",
+    fontSize: 15,
+  },
   primary: {
     fontSize: 20,
     color: "white",
@@ -47,4 +63,5 @@ const text = StyleSheet.create({
   },
 });
 
-export { styles, buttons, text, dimens };
+
+export { myStyles, buttons, text, dimens };

@@ -8,7 +8,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { styles, buttons, text, dimens } from "../styles/styles";
+import { buttons, text, dimens } from "../styles/styles";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 
@@ -17,7 +17,6 @@ const deviceWidth = dimentions.width;
 
 export default class HomeScreen extends Component {
   render() {
-    console.log(deviceWidth);
     return (
       <View style={{ flex: 1, alignItems: "center" }}>
         <Image
@@ -81,6 +80,7 @@ export default class HomeScreen extends Component {
     granted = await this.askForLibraryPermission();
     if (granted) {
       img = await this.pickImage();
+      console.log("image at uploading pic");
       if (img != "") {
         this.navigateTo("Result", { img: img });
       }
@@ -108,13 +108,16 @@ export default class HomeScreen extends Component {
   }
 
   async getCameraPic() {
-    return ImagePicker.launchCameraAsync({
+    let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [3, 3],
       quality: 1,
       base64: true,
     });
+    console.log('getCameraPick image')
+    console.log(result)
+    return result.base64;
   }
 
   navigateTo(location, params) {
@@ -129,7 +132,8 @@ export default class HomeScreen extends Component {
       quality: 1,
       base64: true,
     });
-
+    console.log('pick image')
+    console.log(result)
     return result.base64;
   }
 }
