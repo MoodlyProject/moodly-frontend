@@ -10,6 +10,11 @@ export default ObjectLink = (props) => {
     );
   };
 
+  const backToHome = () => {
+    console.log(props);
+    props.navigation.navigate("Home");
+  };
+
   const tellFriends = async (obj) => {
     let content = {
       message: `MOODLY
@@ -41,6 +46,20 @@ ${obj.movie.link}
       console.log("error -> " + err.message);
     }
   };
+
+  if (props.type == "doit") {
+    return (
+      <View>
+        <FontAwesome.Button
+          style={buttons.link}
+          name="refresh"
+          onPress={() => backToHome()}
+        >
+          <Text style={text.links}>{props.object.title}</Text>
+        </FontAwesome.Button>
+      </View>
+    );
+  }
 
   if (props.type == "share") {
     return (

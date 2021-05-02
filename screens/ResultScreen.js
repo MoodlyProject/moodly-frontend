@@ -6,7 +6,7 @@ import  env  from "../environment";
 import Songs from "../database/music";
 import Movies from "../database/movie";
 import ObjectLink from "../components/ObjectLink";
-import { dimens, myStyles } from "../styles/styles";
+import { dimens, myStyles, text } from "../styles/styles";
 
 export default ResultScreen = (props) => {
 
@@ -20,15 +20,12 @@ export default ResultScreen = (props) => {
 
   useEffect( () => {
     //sending base 64 img to get the conversion
-    console.log('use efects used')
-    getEmotion(props.route.params.img)
-      .then(em => {
-        setEmotion(em);
-        console.log('setTimeout called + 3 sec')
-        setTimeout(() => setIsLoading(false), 3000)
-        return em;
-      });
-    
+    getEmotion(props.route.params.img).then((em) => {
+      setEmotion(em);
+      console.log("setTimeout called + 3 sec");
+      setTimeout(() => setIsLoading(false), 3000);
+      return em;
+    });
   }, []);
 
   const getMusicSuggestion = (emotion) => {
@@ -54,7 +51,8 @@ export default ResultScreen = (props) => {
     setMovie(suggestionsArray[randomIndex]);
   };
   
-  const getEmotion = async(img) =>{
+  const getEmotion = async (img) => {
+    console.log("starting emotion recovering");
     return fetch(env.API + "/img", {
       method: "POST",
       headers: {
@@ -78,7 +76,7 @@ export default ResultScreen = (props) => {
         console.log(err);
         return "";
       });
-  }
+  };
 
   if (isLoading) {
     return (
@@ -86,14 +84,52 @@ export default ResultScreen = (props) => {
     )
   } else {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "space-evenly" }}>
-        <Image source={{  uri: `data:image/png;base64,${img}` }} style={ myStyles.img }/>
-        <Text>You're feeling {emotion}</Text>
-        <Text>We recommend watching and listening to the following:</Text>
-        <View style={{flex: .5, justifyContent: "space-evenly", alignItems: "flex-start"}}>
-          <ObjectLink object={song} type='music'></ObjectLink>
-          <ObjectLink object={movie} type='film'></ObjectLink>
-          <ObjectLink object={{title: 'Tell Your Friends', img, emotion, movie, song}} type='share'></ObjectLink>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Image
+          source={{ uri: `data:image/png;base64,${img}` }}
+          style={myStyles.img}
+        />
+        <View style={{ flex: 0.1, maxHeight: 20 }}>
+          <Text style={text.secondary}>
+            You're feeling
+            <Text style={text.feeling}>{" " + emotion}</Text>
+          </Text>
+        </View>
+        <View
+          style={{
+            flex: 0.5,
+            justifyContent: "space-evenly",
+            alignItems: "flex-start",
+          }}
+        >
+          <Text
+            style={{
+              maxWidth: "80%",
+              fontFamily: "textFont",
+              fontSize: 16,
+              marginBottom: 5,
+              textAlign: "center",
+            }}
+          >
+            We recommend watching and listening to the following:
+          </Text>
+          <ObjectLink object={song} type="music"></ObjectLink>
+          <ObjectLink object={movie} type="film"></ObjectLink>
+          <ObjectLink
+            object={{ title: "Tell Your Friends", img, emotion, movie, song }}
+            type="share"
+          ></ObjectLink>
+          <ObjectLink
+            object={{ title: "Do it again" }}
+            navigation={props.navigation}
+            type="doit"
+          ></ObjectLink>
         </View>
       </View>
     );

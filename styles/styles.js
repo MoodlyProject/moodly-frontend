@@ -30,13 +30,13 @@ const buttons = StyleSheet.create({
     width: 250,
     height: 50,
     justifyContent: "center",
-    backgroundColor: "blue",
+    backgroundColor: "#9d03fc",
   },
   link: {
     width: dimentions.width * 0.8,
     fontSize: 25,
     justifyContent: "center",
-    backgroundColor: "blue",
+    backgroundColor: "#B135FD",
   },
   secondary: {
     fontSize: 30,
@@ -59,7 +59,24 @@ const text = StyleSheet.create({
     color: "white",
   },
   secondary: {
-    fontSize: 17,
+    fontSize: 20,
+    fontFamily: "textFont",
+  },
+  logo: {
+    marginTop: 20,
+    fontSize: 80,
+    color: "#9d03fc",
+    fontFamily: "logoFont",
+  },
+  feeling: {
+    fontSize: 35,
+    color: "#9d03fc",
+    fontFamily: "logoFont",
+  },
+  desc: {
+    fontSize: 15,
+    color: "#8a8a8a",
+    justifyContent: "center",
   },
 });
 
