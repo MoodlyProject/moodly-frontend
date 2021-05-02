@@ -19,24 +19,12 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator
-        screenOptions={{headerShown: false}}
-        >
-          <Stack.Screen
-                name="Loading"
-                component={LoadingScreen}
-          />
-          <Stack.Screen
-                name="Home"
-                component={HomeScreen}
-          />
-          <Stack.Screen
-            name="Result"
-            component={ResultScreen}
-          />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Result" component={ResultScreen} />
         </Stack.Navigator>
-        </NavigationContainer>
-      </Provider>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

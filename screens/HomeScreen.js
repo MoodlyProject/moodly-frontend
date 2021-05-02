@@ -11,7 +11,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { styles, buttons, text, dimens } from "../styles/styles";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
-import env from "../environment";
 
 const dimentions = Dimensions.get("window");
 const deviceWidth = dimentions.width;
@@ -70,9 +69,8 @@ export default class HomeScreen extends Component {
     permissionGranted = await this.askForCameraPermission();
     if (permissionGranted) {
       img = await this.getCameraPic();
-      let emotion = await this.getEmotion(img);
-      if (emotion != "") {
-        this.navigateTo("Result", { img: img, emotion: emotion });
+      if (img != "") {
+        this.navigateTo("Result", { img: img });
       }
     }
   }
@@ -83,9 +81,8 @@ export default class HomeScreen extends Component {
     granted = await this.askForLibraryPermission();
     if (granted) {
       img = await this.pickImage();
-      let emotion = await this.getEmotion(img);
-      if (emotion != "") {
-        this.navigateTo("Result", { img: img, emotion: emotion });
+      if (img != "") {
+        this.navigateTo("Result", { img: img });
       }
     }
   }
@@ -122,28 +119,6 @@ export default class HomeScreen extends Component {
 
   navigateTo(location, params) {
     this.props.navigation.navigate(location, params);
-  }
-
-  async getEmotion(img) {
-    return fetch(env.API + "/img", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        img: img.base64,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("emotion was recovered");
-        return data.emotion;
-      })
-      .catch((err) => {
-        console.log("something has append at sending pic");
-        console.log(err);
-        return "";
-      });
   }
 
   async pickImage() {
