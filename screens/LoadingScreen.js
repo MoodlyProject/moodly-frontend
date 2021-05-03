@@ -17,11 +17,6 @@ class LoadingScreen extends Component {
   };
 
   componentDidMount() {
-    Font.loadAsync({
-      logoFont: require("../assets/fonts/Damion-Regular.ttf"),
-      textFont: require("../assets/fonts/GoogleSans-Medium.ttf"),
-    });
-
     const { LogoAnime, LogoText } = this.state;
     Animated.parallel([
       Animated.loop(
@@ -74,7 +69,7 @@ export default LoadingScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#5257F2",
+    backgroundColor: "#9d03fc",
     justifyContent: "center",
     alignItems: "center",
   },
