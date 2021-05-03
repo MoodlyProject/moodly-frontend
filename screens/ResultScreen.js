@@ -51,6 +51,23 @@ export default ResultScreen = (props) => {
     setMovie(suggestionsArray[randomIndex]);
   };
   
+  const pickColor = (emotion) => {
+    switch (emotion) {
+      case "happy":
+        return "#78faf3";
+      case "angry":
+        return "#b11f09";
+      case "surprise":
+        return "#9d03fc";
+      case "sad":
+        return "#797979";
+      case "disgust":
+        return "#537b7b";
+      default:
+        return "#9d03fc";
+    }
+  };
+
   const getEmotion = async (img) => {
     console.log("starting emotion recovering");
     return fetch(env.API + "/img", {
@@ -98,7 +115,9 @@ export default ResultScreen = (props) => {
         <View style={{ flex: 0.1, maxHeight: 20 }}>
           <Text style={text.secondary}>
             You're feeling
-            <Text style={text.feeling}>{" " + emotion}</Text>
+            <Text style={{ color: pickColor(emotion), ...text.feeling }}>
+              {" " + emotion}
+            </Text>
           </Text>
         </View>
         <View
