@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import {
   View,
-  Image,
   Text,
   StyleSheet,
   Animated,
-  ActivityIndicator,
 } from "react-native";
-import * as Font from "expo-font";
 
 class LoadingScreen extends Component {
   state = {
