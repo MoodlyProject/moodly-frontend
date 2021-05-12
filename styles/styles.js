@@ -1,7 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
 
-const primaryColor = "green";
-const secondaryColor = "pink";
 const dimentions = Dimensions.get("window");
 
 const dimens = StyleSheet.create({
@@ -70,7 +68,6 @@ const text = StyleSheet.create({
   },
   feeling: {
     fontSize: 35,
-    color: "#9d03fc",
     fontFamily: "logoFont",
   },
   desc: {

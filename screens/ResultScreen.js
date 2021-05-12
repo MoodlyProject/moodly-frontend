@@ -1,12 +1,12 @@
 // Aboutscreen.js
-import React, { Component, useState, useEffect } from "react";
-import { Button, View, Text, ViewPropTypes, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, Image } from "react-native";
 import LoadingScreen from './LoadingScreen'
 import  env  from "../environment";
 import Songs from "../database/music";
 import Movies from "../database/movie";
 import ObjectLink from "../components/ObjectLink";
-import { dimens, myStyles, text } from "../styles/styles";
+import { myStyles, text } from "../styles/styles";
 
 export default ResultScreen = (props) => {
 
@@ -16,14 +16,12 @@ export default ResultScreen = (props) => {
   let [movie, setMovie] = useState("");
 
   const img = props.route.params.img;
-  const imgSize = dimens.deviceWidth * .8;
 
   useEffect( () => {
     //sending base 64 img to get the conversion
     getEmotion(props.route.params.img).then((em) => {
       setEmotion(em);
-      console.log("setTimeout called + 3 sec");
-      setTimeout(() => setIsLoading(false), 3000);
+      setIsLoading(false);
       return em;
     });
   }, []);
@@ -41,7 +39,7 @@ export default ResultScreen = (props) => {
 
   const getMovieSuggestion = (emotion) => {
     //get an array of songs for an emotion
-    console.log('gettingMovieSuggestion')
+    console.log(emotion);
     let suggestionsArray = Movies.filter(
       (movieObj) => movieObj.emotion == emotion
     );
@@ -49,7 +47,7 @@ export default ResultScreen = (props) => {
     let randomIndex = Math.floor(Math.random() * suggestionsArray.length);
     //pick a song obj with the random Index and assing to song
     setMovie(suggestionsArray[randomIndex]);
-  };
+  };;
   
   const pickColor = (emotion) => {
     switch (emotion) {
@@ -63,34 +61,61 @@ export default ResultScreen = (props) => {
         return "#797979";
       case "disgust":
         return "#537b7b";
+      case "neutral":
+        console.log("found neutral");
+        return "#797979";
       default:
         return "#9d03fc";
     }
   };
 
+  const convertEmotion = (em) => {
+    em = em.toLowerCase();
+    switch (em) {
+      case 'sad':
+        return 'sadness'
+      case 'angry':
+        return 'anger'
+      case 'disgusted':
+        return 'disgust'
+      case 'fear':
+        return 'fear'
+      case 'happy':
+        return 'happy'
+      case 'neutral':
+        return 'happy'
+      case 'surprised':
+        return "surprise";
+    }
+  }
+
   const getEmotion = async (img) => {
-    console.log("starting emotion recovering");
     return fetch(env.API + "/img", {
       method: "POST",
       headers: {
+        Accept: "*/*",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         img: img,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
       .then((data) => {
         console.log("emotion was recovered");
+        let emotionFriendly = convertEmotion(data.emotion);
         // Get Music suggestion and save it in a movie object variable
-        getMovieSuggestion(data.emotion);
+        getMovieSuggestion(emotionFriendly);
         // Get Movie suggestion and save it in a movie object variable
-        getMusicSuggestion(data.emotion);
-        return data.emotion;
+        getMusicSuggestion(emotionFriendly);
+        return data.emotion.toLowerCase();
       })
       .catch((err) => {
-        console.log("something has append at sending pic");
         console.log(err);
+        console.log("something has append at sending pic");
         return "";
       });
   };
