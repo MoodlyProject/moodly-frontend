@@ -18,7 +18,7 @@ export default ObjectLink = (props) => {
   const tellFriends = async (obj) => {
     let content = {
       message: `MOODLY
-This is how I feel :P
+👋 This is how I feel 
 🎵 ${obj.song.title}
 ${obj.song.link}
 🎥 ${obj.movie.title}

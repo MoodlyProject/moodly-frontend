@@ -20,10 +20,8 @@ export default ResultScreen = (props) => {
   useEffect( () => {
     //sending base 64 img to get the conversion
     getEmotion(props.route.params.img).then((em) => {
-      console.log('Emotion before setting up')
-      console.log(em)
       setEmotion(em);
-      setIsLoading(false)
+      setIsLoading(false);
       return em;
     });
   }, []);
@@ -41,9 +39,7 @@ export default ResultScreen = (props) => {
 
   const getMovieSuggestion = (emotion) => {
     //get an array of songs for an emotion
-    console.log('emotion found')
-    console.log(emotion)
-    console.log('gettingMovieSuggestion')
+    console.log(emotion);
     let suggestionsArray = Movies.filter(
       (movieObj) => movieObj.emotion == emotion
     );
@@ -51,10 +47,9 @@ export default ResultScreen = (props) => {
     let randomIndex = Math.floor(Math.random() * suggestionsArray.length);
     //pick a song obj with the random Index and assing to song
     setMovie(suggestionsArray[randomIndex]);
-  };
+  };;
   
   const pickColor = (emotion) => {
-    console.log('calling to pick color')
     switch (emotion) {
       case "happy":
         return "#78faf3";
@@ -67,7 +62,7 @@ export default ResultScreen = (props) => {
       case "disgust":
         return "#537b7b";
       case "neutral":
-        console.log('found neutral')
+        console.log("found neutral");
         return "#797979";
       default:
         return "#9d03fc";
@@ -90,16 +85,15 @@ export default ResultScreen = (props) => {
       case 'neutral':
         return 'happy'
       case 'surprised':
-        return 'surprice'
+        return "surprise";
     }
   }
 
   const getEmotion = async (img) => {
-    console.log("starting emotion recovering");
     return fetch(env.API + "/img", {
       method: "POST",
       headers: {
-        'Accept': '*/*',
+        Accept: "*/*",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -112,7 +106,7 @@ export default ResultScreen = (props) => {
       })
       .then((data) => {
         console.log("emotion was recovered");
-        let emotionFriendly = convertEmotion(data.emotion)
+        let emotionFriendly = convertEmotion(data.emotion);
         // Get Music suggestion and save it in a movie object variable
         getMovieSuggestion(emotionFriendly);
         // Get Movie suggestion and save it in a movie object variable
